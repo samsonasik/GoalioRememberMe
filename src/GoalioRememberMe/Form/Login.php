@@ -12,7 +12,7 @@ class Login extends ZfcLoginForm
      */
     protected $authOptions;
 
-    public function __construct($name = null, AuthenticationOptionsInterface $options)
+    public function __construct(?string $name, AuthenticationOptionsInterface $options)
     {
         parent::__construct($name, $options);
 
