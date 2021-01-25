@@ -2,11 +2,11 @@
 
 namespace GoalioRememberMe\Mapper;
 
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 
-class RememberMeHydrator extends ClassMethods
+class RememberMeHydrator extends ClassMethodsHydrator
 {
-    public function extract($object)
+    public function extract(object $object): array
     {
         $data = parent::extract($object);
         return $data;
