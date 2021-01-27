@@ -9,7 +9,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethodsHydrator;
 use ZfcUser\EventManager\EventProvider;
 
 abstract class AbstractDbMapper extends EventProvider {
@@ -79,7 +79,7 @@ abstract class AbstractDbMapper extends EventProvider {
         }
 
         if (!$this->hydrator instanceof HydratorInterface) {
-            $this->hydrator = new ClassMethods;
+            $this->hydrator = new ClassMethodsHydrator;
         }
 
         if (!is_object($this->entityPrototype)) {
@@ -242,7 +242,7 @@ abstract class AbstractDbMapper extends EventProvider {
      */
     public function getHydrator() {
         if (!$this->hydrator) {
-            $this->hydrator = new ClassMethods(false);
+            $this->hydrator = new ClassMethodsHydrator(false);
         }
         return $this->hydrator;
     }
