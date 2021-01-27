@@ -21,10 +21,11 @@ class Cookie extends AbstractAdapter
     public function authenticate(EventInterface $e) {
         /* @var $authEvent AuthEvent */
         $authEvent = $e->getTarget();
+
         // check if cookie needs to be set, only when prior auth has been successful
-        if ($authEvent->getIdentity() !== null && $authEvent->getRequest()->isPost()
-        && $authEvent->getRequest()->getPost()->get('remember_me') == 1) {
-            $userObject = $this->getUserMapper()->findById($authEvent->getIdentity());
+        if ($authEvent->getEvent()->getIdentity() !== null && $authEvent->getEvent()->getRequest()->isPost()
+        && $authEvent->getEvent()->getRequest()->getPost()->get('remember_me') == 1) {
+            $userObject = $this->getUserMapper()->findById($authEvent->getEvent()->getIdentity());
             $this->getRememberMeService()->createSerie($userObject->getId());
 
             /**
@@ -46,7 +47,7 @@ class Cookie extends AbstractAdapter
             return;
         }
 
-        $cookies = $authEvent->getRequest()->getCookie();
+        $cookies = $authEvent->getEvent()->getRequest()->getCookie();
 
         // no cookie present, skip authentication
         if(!isset($cookies['remember_me'])) {
