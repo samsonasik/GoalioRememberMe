@@ -41,7 +41,7 @@ class Cookie extends AbstractAdapter
 
         if ($this->isSatisfied()) {
             $storage = $this->getStorage()->read();
-            $authEvent->setIdentity($storage['identity'])
+            $authEvent->getEvent()->setIdentity($storage['identity'])
                 ->setCode(AuthenticationResult::SUCCESS)
                 ->setMessages(array('Authentication successful.'));
             return;
@@ -81,7 +81,7 @@ class Cookie extends AbstractAdapter
         $this->getRememberMeService()->updateSerie($rememberMe);
 
         // Success!
-        $authEvent->setIdentity($userObject->getId());
+        $authEvent->getEvent()->setIdentity($userObject->getId());
         $this->setSatisfied(true);
         $storage = $this->getStorage()->read();
         $storage['identity'] = $authEvent->getIdentity();
