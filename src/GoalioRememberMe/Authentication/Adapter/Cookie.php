@@ -71,7 +71,7 @@ class Cookie extends AbstractAdapter
             $this->getRememberMeService()->removeCookie();
             $this->setSatisfied(false);
 
-            $authEvent->setCode(AuthenticationResult::FAILURE)
+            $authEvent->getEvent()->setCode(AuthenticationResult::FAILURE)
             ->setMessages(array('Possible identity theft detected.'));
             return false;
         }
@@ -84,9 +84,9 @@ class Cookie extends AbstractAdapter
         $authEvent->getEvent()->setIdentity($userObject->getId());
         $this->setSatisfied(true);
         $storage = $this->getStorage()->read();
-        $storage['identity'] = $authEvent->getIdentity();
+        $storage['identity'] = $authEvent->getEvent()->getIdentity();
         $this->getStorage()->write($storage);
-        $authEvent->setCode(AuthenticationResult::SUCCESS)
+        $authEvent->getEvent()->setCode(AuthenticationResult::SUCCESS)
           ->setMessages(array('Authentication successful.'));
 
         // Reference for weak login. Should not be allowed to change PW etc.
