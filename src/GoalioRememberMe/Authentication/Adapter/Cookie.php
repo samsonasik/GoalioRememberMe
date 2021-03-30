@@ -78,6 +78,10 @@ class Cookie extends AbstractAdapter
 
         $userObject = $this->getUserMapper()->findById($cookie[0]);
 
+        if ($userObject === null) {
+            return false;
+        }
+
         $this->getRememberMeService()->updateSerie($rememberMe);
 
         // Success!
